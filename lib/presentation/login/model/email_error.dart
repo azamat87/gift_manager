@@ -1,0 +1,2 @@
+
+enum EmailError { noError, notExist }

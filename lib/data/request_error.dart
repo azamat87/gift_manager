@@ -1,0 +1,2 @@
+
+enum RequestError { unknown, noError }
