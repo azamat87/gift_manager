@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gift_manager/data/request_error.dart';
+import 'package:gift_manager/extensions/theme_extensions.dart';
 import 'package:gift_manager/presentation/home/view/home_page.dart';
 import 'package:gift_manager/presentation/login/model/email_error.dart';
 import 'package:gift_manager/presentation/login/model/models.dart';
+import 'package:gift_manager/resources/app_colors.dart';
 
 import '../bloc/login_bloc.dart';
 
@@ -60,7 +62,10 @@ class _LoginPageWidgetState extends State<_LoginPageWidget> {
           listener: (context, state) {
             if (state.requestError != RequestError.noError) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Произошла ошибка', style: TextStyle(color: Colors.white),),
+                content: Text(
+                  'Произошла ошибка',
+                  style: TextStyle(color: Colors.white),
+                ),
                 backgroundColor: Colors.red,
               ));
               context.read<LoginBloc>().add(const LoginRequestErrorShowed());
@@ -71,10 +76,10 @@ class _LoginPageWidgetState extends State<_LoginPageWidget> {
       child: Column(
         children: [
           const SizedBox(height: 64),
-          const Center(
+          Center(
             child: Text(
               "Вход",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+              style: context.theme.h2,
             ),
           ),
           const Spacer(flex: 88),
@@ -96,7 +101,13 @@ class _LoginPageWidgetState extends State<_LoginPageWidget> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Еще нет аккаунта"),
+              Text(
+                "Еще нет аккаунта",
+                style: context.theme.h4.dynamicColor(
+                    context: context,
+                    lightThemeColor: AppColors.lightGrey60,
+                    darkThemeColor: AppColors.darkWhite60),
+              ),
               TextButton(onPressed: () {}, child: const Text("Создать")),
             ],
           ),
@@ -124,12 +135,14 @@ class _LoginButton extends StatelessWidget {
           },
           builder: (context, isValid) {
             return ElevatedButton(
-                onPressed: isValid
-                    ? () => context
-                        .read<LoginBloc>()
-                        .add(const LoginLoginButtonClicked())
-                    : null,
-                child: const Text("Войти"));
+              onPressed: isValid
+                  ? () => context
+                      .read<LoginBloc>()
+                      .add(const LoginLoginButtonClicked())
+                  : null,
+              child: Text("Войти"),
+              
+            );
           },
         ),
       ),
@@ -155,8 +168,11 @@ class _PasswordTextField extends StatelessWidget {
                 context.read<LoginBloc>().add(LoginPasswordChanged(text)),
             onSubmitted: (_) =>
                 context.read<LoginBloc>().add(const LoginLoginButtonClicked()),
+            autocorrect: false,
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
             decoration: InputDecoration(
-                hintText: "Пароль",
+                labelText: "Пароль",
                 errorText: emailError == EmailError.noError
                     ? null
                     : emailError.toString()),
@@ -188,8 +204,10 @@ class _EmailTextField extends StatelessWidget {
             onSubmitted: (_) => passwordFocusNode.requestFocus(),
             onChanged: (text) =>
                 context.read<LoginBloc>().add(LoginEmailChanged(text)),
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-                hintText: "Почта",
+                labelText: "Почта",
                 errorText: passwordError == PasswordError.noError
                     ? null
                     : PasswordError.wrongPassword.toString()),
