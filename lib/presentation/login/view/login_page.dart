@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gift_manager/data/request_error.dart';
+import 'package:gift_manager/data/model/request_error.dart';
 import 'package:gift_manager/extensions/theme_extensions.dart';
 import 'package:gift_manager/presentation/home/view/home_page.dart';
 import 'package:gift_manager/presentation/login/model/email_error.dart';
 import 'package:gift_manager/presentation/login/model/models.dart';
+import 'package:gift_manager/presentation/registration/view/registration_page.dart';
 import 'package:gift_manager/resources/app_colors.dart';
 
 import '../bloc/login_bloc.dart';
@@ -108,7 +109,9 @@ class _LoginPageWidgetState extends State<_LoginPageWidget> {
                     lightThemeColor: AppColors.lightGrey60,
                     darkThemeColor: AppColors.darkWhite60),
               ),
-              TextButton(onPressed: () {}, child: const Text("Создать")),
+              TextButton(onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=> RegistrationPage()));
+              }, child: const Text("Создать")),
             ],
           ),
           const SizedBox(

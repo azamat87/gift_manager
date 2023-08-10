@@ -5,6 +5,7 @@ final _base = ThemeData.light();
 
 final lightTheme = _base.copyWith(
   backgroundColor: AppColors.lightWhite100,
+  scaffoldBackgroundColor: AppColors.lightWhite100,
   textTheme: _base.textTheme.copyWith(
     headline1: const TextStyle(
         fontSize: 32,
@@ -113,4 +114,9 @@ final lightTheme = _base.copyWith(
     cursorColor: AppColors.lightDarkBlue100,
     selectionHandleColor: AppColors.lightLightBlue100,
   ),
+  appBarTheme: const AppBarTheme(
+    elevation: 0,
+    backgroundColor: AppColors.lightWhite100,
+    foregroundColor: AppColors.lightDarkBlue100
+  )
 );

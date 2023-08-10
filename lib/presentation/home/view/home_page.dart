@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gift_manager/data/storage/shared_preference_data.dart';
+
+import '../../login/view/login_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -7,7 +10,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(),
+      body: Center(
+        child: Column(
+          children: [
+            Text(""),
+            const SizedBox(height: 42,),
+            TextButton(onPressed: () async {
+              SharedPreferenceData.getInstance().setToken(null);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const LoginPage()),
+                      (route) => false);
+            }, child: Text("Logout"))
+          ],
+        ),
+      ),
     );
   }
 

@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gift_manager/data/request_error.dart';
+import 'package:gift_manager/data/model/request_error.dart';
 import 'package:gift_manager/presentation/login/model/models.dart';
 
 part 'login_state.dart';
